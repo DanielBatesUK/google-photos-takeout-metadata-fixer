@@ -165,8 +165,17 @@ These are extremely useful if something looks off.
 1. Download Google Photos Takeout
 2. Extract Takeout archive
 3. Run this script
-4. Upload fixed media back to Google Photos (for example via a Pixel device)
-5. Rebuild albums in Google Photos
+4. Upload fixed media to another image storage service; or keep on your own storage.
+
+---
+
+### Background / Motivation
+
+I made this script after discovering that my old Pixel phone still had unlimited Google Photos storage (as of 19th January 2026).
+
+I downloaded my entire library via Google Takeout, fixed the metadata using this script, and re-uploaded only photos and videos taken after 1st June 2021 (when free storage ended) back to Google Photos via the Pixel.
+
+I now use Syncthing to automatically push new photos from my current phone to the Pixel for upload.
 
 ---
 
@@ -185,6 +194,8 @@ This script is provided as-is. Always:
 Because Google Photos Takeout gives you *all your memories*… just not in a usable state.
 
 This script makes them whole again.
+
+And I didn't want to pay the fee for "Metadata Fixer For Google Takeout".
 
 ---
 
