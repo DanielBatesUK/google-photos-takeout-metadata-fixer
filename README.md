@@ -119,7 +119,7 @@ Make sure the output directory exists before running.
 ## Running the script
 
 ```bash
-python google_photos_takeout_fix.py
+python metadata-fixer.py
 ```
 
 Depending on library size, this may take minutes or hours. Progress is shown during execution.
