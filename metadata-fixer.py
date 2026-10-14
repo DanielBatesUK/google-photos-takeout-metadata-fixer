@@ -190,6 +190,10 @@ def create_exiftool_arguments(media_files_dictionary, output_to_file = False):
     argument_counts = 0
     exiftool_arguments = ""
     for file in media_files_dictionary.values():
+        # Check None values
+        if file is None:
+            continue
+        # Generate argument for file
         argument_counts += 1
         file_data = get_json_data(file)
         if file['file_type'] == 'photo':
@@ -211,9 +215,16 @@ def create_exiftool_arguments(media_files_dictionary, output_to_file = False):
 # Execute exiftool commands
 def execute_exiftool(exiftool_arguments):
     print('Executing exiftool; this could take some time...')
-    exiftool_arguments += f"\n-stay_open\nFalse\n" # Used to close exiftool when finished
+    # Add append close to arguments
+    exiftool_arguments += f"\n-stay_open\nFalse\n"
+    # Validate ExifTool path and establish fallback
+    actual_exiftool_path = EXIFTOOL_PATH
+    if not os.path.exists(actual_exiftool_path):
+        actual_exiftool_path = shutil.which("exiftool")
+        if not actual_exiftool_path:
+            raise FileNotFoundError(f"ExifTool not found at configured path: {EXIFTOOL_PATH} or in system PATH.")
     # Execute exiftool
-    exiftool_command = [EXIFTOOL_PATH, "-stay_open", "True", "-progress",  "-ignoreMinorErrors", "-@", "-"]
+    exiftool_command = [actual_exiftool_path, "-stay_open", "True", "-progress",  "-ignoreMinorErrors", "-@", "-"]
     exiftool = subprocess.Popen(exiftool_command, stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, bufsize=1)
     # Send all arguments at once
     stdout, stderr = exiftool.communicate(exiftool_arguments)
